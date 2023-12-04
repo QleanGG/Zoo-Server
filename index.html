@@ -59,13 +59,14 @@
         // taking server link and declaring the animals array
         const MY_SERVER = 'http://localhost:3000/Animals';
         let animals = [];
-
+        
         // show the entire array object from the server
         async function show() {
+            
             animals = await fetch(MY_SERVER);
             animals = await animals.json();
             console.log(animals);
-
+            localStorage.setItem('Animals',JSON.stringify(animals))
             display.innerHTML = animals.map(animal =>
                 `<div class="animalContainer card" style="width: 18rem;">
                 <img src="./images/${animal.type.toLowerCase()}.webp" height=200px class="card-img-top" alt="${animal.type}">

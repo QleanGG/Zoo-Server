@@ -1,21 +1,15 @@
 {
   "Animals": [
     {
-      "AnimalName": "mul",
+      "AnimalName": "Flitz",
       "type": "Zebra",
       "age": "2",
       "id": 5
     },
     {
-      "AnimalName": "Uzi",
-      "type": "Monkey",
-      "age": "5",
-      "id": 6
-    },
-    {
       "AnimalName": "Guy",
-      "type": "Lion",
-      "age": "11",
+      "type": "Giraffe",
+      "age": "26",
       "id": 7
     },
     {
@@ -23,6 +17,12 @@
       "type": "Panda",
       "age": "22",
       "id": 8
+    },
+    {
+      "AnimalName": "TAPUZ",
+      "type": "Tiger",
+      "age": "300",
+      "id": 9
     }
   ]
 }
