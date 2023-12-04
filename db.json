@@ -1,0 +1,28 @@
+{
+  "Animals": [
+    {
+      "AnimalName": "mul",
+      "type": "Zebra",
+      "age": "2",
+      "id": 5
+    },
+    {
+      "AnimalName": "Uzi",
+      "type": "Monkey",
+      "age": "5",
+      "id": 6
+    },
+    {
+      "AnimalName": "Guy",
+      "type": "Lion",
+      "age": "11",
+      "id": 7
+    },
+    {
+      "AnimalName": "Chen",
+      "type": "Panda",
+      "age": "22",
+      "id": 8
+    }
+  ]
+}

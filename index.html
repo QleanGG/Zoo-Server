@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zoo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="loading-wrap" id="loading-wrap">
+        <div class="loader"></div>
+    </div>
+
+    <h1>Qlean Zoo</h1>
+
+    <h3>Add Animals:</h3>
+    <form>
+        <div class="mb-3">
+            <label for="animalName" class="form-label">Animal Name:</label>
+            <input style="width: 200px;" type="text" class="form-control" id="animalName" placeholder="Moti">
+            <label for="animalAge" class="form-label">Animal Age:</label>
+            <input style="width: 200px;" type="number" class="form-control" id="animalAge" placeholder="10">
+        </div>
+        <!-- Animal Name: <input id="animalName"><br> -->
+        Animal Type: <select style="width: 200px;" id="animalType" name="animalType" class="form-select"><br>
+            <option value="Lion">Lion</option>
+            <option value="Monkey">Monkey</option>
+            <option value="Zebra">Zebra</option>
+            <option value="Giraffe">Giraffe</option>
+            <option value="Panda">Panda</option>
+            <option value="Tiger">Tiger</option>
+        </select><br>
+        <button onclick="addAnimal()">Add Animal</button><br><br>
+
+        <!-- Animal Age: <input id="animalAge"><br><br> -->
+    </form>
+    <!-- <button onclick="show()">Show Info</button> -->
+    <h2>Animals</h2>
+    <div id="display">
+    </div>
+    <script>
+
+        // loading screen disappear 
+        document.addEventListener("DOMContentLoaded", function () {
+            let loadingwrap = document.getElementById("loading-wrap");
+            setTimeout(function () {
+                loadingwrap.style.display = "none";
+            }, 1200);
+        });
+
+        // taking server link and declaring the animals array
+        const MY_SERVER = 'http://localhost:3000/Animals';
+        let animals = [];
+
+        // show the entire array object from the server
+        async function show() {
+            animals = await fetch(MY_SERVER);
+            animals = await animals.json();
+            console.log(animals);
+
+            display.innerHTML = animals.map(animal =>
+                `<div class="animalContainer card" style="width: 18rem;">
+                <img src="./images/${animal.type.toLowerCase()}.webp" height=200px class="card-img-top" alt="${animal.type}">
+                <h5 class="card-title">${animal.AnimalName}</h5>
+                <p>Type: ${animal.type}</p> <p>Age: ${animal.age}</p>  
+            <button onclick="deleteAnimal(${animal.id})">Delete</button>    
+            <button onclick="updateAnimal(${animal.id})">Update</button>
+            </div>`).join('');
+
+        }
+
+        // adding new animals
+        function addAnimal() {
+            fetch(MY_SERVER, {
+                method: 'POST',
+                body: JSON.stringify({
+                    AnimalName: animalName.value,
+                    type: animalType.value,
+                    age: animalAge.value
+                }),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            })
+                .then((response) => response.json())
+                .then((json) => console.log(json));
+            show();
+        }
+
+        async function deleteAnimal(id) {
+            await fetch(`${MY_SERVER}/${id}`, {
+                method: 'DELETE',
+            });
+            console.log();
+            show();
+        }
+
+        async function updateAnimal(id) {
+            fetch(`${MY_SERVER}/${id}`, {
+                method: 'PUT',
+                body: JSON.stringify({
+                    AnimalName: animalName.value,
+                    type: animalType.value,
+                    age: animalAge.value
+                }),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            })
+                .then((response) => response.json())
+                .then((json) => console.log(json));
+            show();
+        }
+        show();
+
+    </script>
+</body>
+
+</html>
