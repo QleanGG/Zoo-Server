@@ -1,12 +1,6 @@
 {
   "Animals": [
     {
-      "AnimalName": "Flitz",
-      "type": "Zebra",
-      "age": "2",
-      "id": 5
-    },
-    {
       "AnimalName": "Guy",
       "type": "Giraffe",
       "age": "26",
